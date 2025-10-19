@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <Targets>
+    <Target>
+      <TargetName>Target 1</TargetName>
+      <TargetOption>
+        <TargetCommonOption>
+          <Device>
+            <Vendor>ST</Vendor>
+            <Part>STM32F103C8</Part>
+          </Device>
+          <TargetType>
+            <OutputDirectory>.\MDK-ARM\Target</OutputDirectory>
+          </TargetType>
+        </TargetCommonOption>
+        <CPUOptions>
+          <CLKSRC>HSE</CLKSRC>
+        </CPUOptions>
+      </TargetOption>
+      <Groups>
+        <Group>
+          <GroupName>Source</GroupName>
+          <Files>
+            <File>
+              <FileName>..\\User\\main.c</FileName>
+            </File>
+            <File>
+              <FileName>..\\User\\freertos.c</FileName>
+            </File>
+            <File>
+              <FileName>..\\User\\FreeRTOSConfig.h</FileName>
+            </File>
+            <File>
+              <FileName>..\\User\\main.h</FileName>
+            </File>
+          </Files>
+        </Group>
+      </Groups>
+    </Target>
+  </Targets>
+</Project>

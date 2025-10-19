@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Options>
+  <Common>
+    <PackList>
+      <Pack>STMicroelectronics.STM32F1xx_DFP</Pack>
+    </PackList>
+  </Common>
+</Options>
