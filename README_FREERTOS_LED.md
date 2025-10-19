@@ -1,6 +1,6 @@
-# 🧠 FreeRTOS LED Blink Demo – STM32F103C8T6 (Blue Pill)
+#  FreeRTOS LED Blink Demo – STM32F103C8T6 (Blue Pill)
 
-## 1️⃣ Mục đích
+## 1️ Mục đích
 Dự án minh họa cách **truyền dữ liệu giữa các task trong FreeRTOS** bằng **hàng đợi (Queue)**.  
 Hai task sẽ phối hợp:
 - **Task03** gửi dữ liệu (tần số & duty) vào queue.
@@ -8,7 +8,7 @@ Hai task sẽ phối hợp:
 
 ---
 
-## 2️⃣ Cấu trúc dữ liệu chính
+## 2️ Cấu trúc dữ liệu chính
 ```c
 typedef struct {
   uint32_t frequency;  // Tần số nhấp nháy (Hz)
@@ -16,15 +16,15 @@ typedef struct {
 } BlinkParam_t;
 ```
 
-👉 Mỗi phần tử trong queue là một `BlinkParam_t`, chứa:
+ Mỗi phần tử trong queue là một `BlinkParam_t`, chứa:
 - `frequency`: số lần LED bật/tắt mỗi giây  
 - `duty`: tỉ lệ phần trăm thời gian LED bật trong một chu kỳ
 
 ---
 
-## 3️⃣ Cách hoạt động tổng thể
+## 3️ Cách hoạt động tổng thể
 
-### ⚙️ a. Khởi tạo
+###  a. Khởi tạo
 Trong `main()`:
 1. Gọi `HAL_Init()` và cấu hình clock 72 MHz.  
 2. Khởi tạo GPIO cho LED (chân **PA0**).  
@@ -62,16 +62,16 @@ void StartTask03(void const * argument)
 }
 ```
 
-#### 🔍 Giải thích:
+####  Giải thích:
 - Mỗi **3 giây**, Task03 gửi một cấu trúc `param` chứa `frequency` và `duty` vào hàng đợi.  
 - Các giá trị tuần tự luân phiên theo mảng `freqs` và `dutys`.  
 - `xQueueSend()` thêm phần tử vào queue mà không chờ (`timeout = 0`).
 
-➡️ **Kết quả:** mỗi 3 giây, LED sẽ đổi tần số và duty.
+ **Kết quả:** mỗi 3 giây, LED sẽ đổi tần số và duty.
 
 ---
 
-### 💡 c. Task02 – Nhận dữ liệu và điều khiển LED
+###  c. Task02 – Nhận dữ liệu và điều khiển LED
 ```c
 void StartTask02(void const * argument)
 {
@@ -107,11 +107,11 @@ void StartTask02(void const * argument)
   - `offTime = period - onTime` → thời gian LED tắt  
 - Cuối cùng bật LED, delay `onTime`, tắt LED, delay `offTime`.
 
-➡️ **Kết quả:** LED thay đổi tốc độ và độ sáng tương đối theo duty.
+ **Kết quả:** LED thay đổi tốc độ và độ sáng tương đối theo duty.
 
 ---
 
-### 💡 d. Task mặc định
+###  d. Task mặc định
 ```c
 void StartDefaultTask(void const * argument)
 {
@@ -126,7 +126,7 @@ void StartDefaultTask(void const * argument)
 
 ---
 
-## 4️⃣ FreeRTOS Queue
+##  FreeRTOS Queue
 Queue được tạo bằng:
 ```c
 blinkQueueHandle = xQueueCreate(5, sizeof(BlinkParam_t));
@@ -137,7 +137,7 @@ blinkQueueHandle = xQueueCreate(5, sizeof(BlinkParam_t));
 
 ---
 
-## 5️⃣ Clock & GPIO
+## 5️ Clock & GPIO
 ```c
 SystemClock_Config();  // 72 MHz từ HSE 8 MHz ×9
 MX_GPIO_Init();        // Bật clock GPIOA, cấu hình PA0 output push-pull
@@ -147,7 +147,7 @@ Hàm `HAL_GPIO_WritePin()` được dùng để bật/tắt LED.
 
 ---
 
-## 6️⃣ Kết quả quan sát
+## 6️ Kết quả quan sát
 - LED ở PA0 nhấp nháy.
 - Chu kỳ thay đổi mỗi **3 giây** theo tần số & duty mới:
   | Lần | Frequency (Hz) | Duty (%) |
@@ -160,7 +160,7 @@ Hàm `HAL_GPIO_WritePin()` được dùng để bật/tắt LED.
 
 ---
 
-## 7️⃣ Tổng kết
+## 7️ Tổng kết
 - Dự án này giúp hiểu cách **task giao tiếp qua queue** trong FreeRTOS.  
 - Mô hình phù hợp để mở rộng cho các bài lab như:
   - Gửi dữ liệu cảm biến qua queue.
@@ -169,20 +169,7 @@ Hàm `HAL_GPIO_WritePin()` được dùng để bật/tắt LED.
 
 ---
 
-## 📚 Kiến thức FreeRTOS minh họa
-| Thành phần | Hàm sử dụng | Vai trò |
-|-------------|-------------|----------|
-| Task | `osThreadDef`, `osThreadCreate` | Tạo 3 task |
-| Queue | `xQueueCreate`, `xQueueSend`, `xQueueReceive` | Giao tiếp giữa các task |
-| Delay | `osDelay()` | Tạo thời gian thực theo tick |
-| Scheduler | `osKernelStart()` | Quản lý luồng thực thi |
 
----
 
-🧩 **Kết luận:**  
-Dự án nhỏ nhưng minh họa đầy đủ khái niệm cốt lõi của FreeRTOS:
-- **Task song song**
-- **Queue truyền dữ liệu**
-- **Scheduler điều phối thời gian**
 
-Rất thích hợp để học FreeRTOS cơ bản trên STM32.
+Link : https://drive.google.com/file/d/1aalODvc2JUDxx1OnhlH9e-MDga1wOTdO/view?usp=sharing
